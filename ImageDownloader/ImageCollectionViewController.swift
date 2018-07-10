@@ -39,7 +39,7 @@ class ImageCollectionViewController: UIViewController, UICollectionViewDataSourc
 		ImageManager.shared.startDownloadingImages()
 	}
 
-	func imageDidLoad(_ notification: Notification) {
+	@objc func imageDidLoad(_ notification: Notification) {
 		if let imageObject = notification.object as? ImageEntity {
 			if let item = imageObjects.index(of: imageObject) {
 				let indexPath = IndexPath(item: item, section: 0)
@@ -50,7 +50,7 @@ class ImageCollectionViewController: UIViewController, UICollectionViewDataSourc
 		}
 	}
 
-	func imageListDidChange(_ notification: Notification) {
+	@objc func imageListDidChange(_ notification: Notification) {
 		DispatchQueue.main.async {
 			self.imageObjects = ImageManager.shared.imageObjects
 			self.collectionView.reloadData()

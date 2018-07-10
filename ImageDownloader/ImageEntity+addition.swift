@@ -18,8 +18,10 @@ extension ImageEntity: ZDownloadable {
 	}
 
 	public func downloadDidComplete(info: NSDictionary, response: URLResponse?, location: URL?, error: Error?) {
-
-		print("downloaded: \(response?.url)")
+		print("downloadDidComplete:")
+		if let response = response { print("  response: \(response)") }
+		if let location = location { print("  location: \(location)") }
+		if let error = error { print("  error: \(error)") }
 
 		if let location = location {
 			if let imageBin = try? Data(contentsOf: location), let _ = UIImage(data: imageBin) {

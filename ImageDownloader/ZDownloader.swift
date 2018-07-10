@@ -70,11 +70,11 @@ public class ZDownloader: NSObject {
 		NotificationCenter.default.removeObserver(self)
 	}
 
-	func applicationWillEnterForeground(_ notification: Notification) {
+	@objc func applicationWillEnterForeground(_ notification: Notification) {
 		print("applicationWillEnterForeground")
 	}
 
-	func applicationDidEnterBackground(_ notification: Notification) {
+	@objc func applicationDidEnterBackground(_ notification: Notification) {
 		print("applicationDidEnterBackground")
 	}
 

@@ -63,7 +63,7 @@ class ImageManager: ZDownloaderDelegate {
 				let imageList = try! String(contentsOf: self.imageListURL)
 				var urls = [URL]()
 				imageList.enumerateLines { (line, stop) in
-					if line.trimmingCharacters(in: CharacterSet.whitespaces).characters.count > 0, let url = URL(string: line) {
+					if line.trimmingCharacters(in: CharacterSet.whitespaces).count > 0, let url = URL(string: line) {
 						urls.append(url)
 					}
 				}

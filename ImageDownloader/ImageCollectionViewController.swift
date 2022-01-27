@@ -41,7 +41,7 @@ class ImageCollectionViewController: UIViewController, UICollectionViewDataSourc
 
 	@objc func imageDidLoad(_ notification: Notification) {
 		if let imageObject = notification.object as? ImageEntity {
-			if let item = imageObjects.index(of: imageObject) {
+			if let item = imageObjects.firstIndex(of: imageObject) {
 				let indexPath = IndexPath(item: item, section: 0)
 				DispatchQueue.main.async {
 					self.collectionView.reloadItems(at: [indexPath])

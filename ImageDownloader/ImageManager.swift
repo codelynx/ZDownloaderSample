@@ -31,10 +31,6 @@ class ImageManager: ZDownloaderDelegate {
 		return ZManagedObjectStorage(fileURL: fileURL, modelName: "ImageModel")!
 	}()
 
-	var imageListURL: URL {
-		return Bundle.main.url(forResource: "imagelist", withExtension: "txt")!
-	}
-
 	lazy var downloader: ZDownloader? = {
 		return ZDownloader(identifier: "image.downloader", delegate: self)
 	}()
@@ -60,15 +56,7 @@ class ImageManager: ZDownloaderDelegate {
 
 				print("updating the list")
 				let context = self.storage.managedObjectContext!
-				let imageList = try! String(contentsOf: self.imageListURL)
-				var urls = [URL]()
-				imageList.enumerateLines { (line, stop) in
-					if line.trimmingCharacters(in: CharacterSet.whitespaces).count > 0, let url = URL(string: line) {
-						urls.append(url)
-					}
-				}
-				let imageURLs = urls.shuffled()[0 ..< 256]  // pick 256 randomly
-				
+				let imageURLs = (0..<256).compactMap { URL(string: "https://picsum.photos/\($0)") }
 				for imageURL in imageURLs {
 					let request = NSFetchRequest<ImageEntity>(entityName: "ImageEntity")
 					request.predicate = NSPredicate(format: "url == %@", imageURL.absoluteString)
@@ -120,7 +108,7 @@ class ImageManager: ZDownloaderDelegate {
 		for imageObject in self.imageObjects {
 			context?.delete(imageObject)
 		}
-		try? context?.save()
+		((try? context?.save()) as ()??)
 		self.updateImages()
 	}
 

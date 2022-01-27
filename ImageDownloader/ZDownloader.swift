@@ -26,9 +26,10 @@
 //
 
 import Foundation
+import UIKit
 
 
-public protocol ZDownloadable: class {
+public protocol ZDownloadable: AnyObject {
 
 	var downloadableInfo: NSDictionary { get } // should be JSON serializable
 	func downloadDidComplete(info: NSDictionary, response: URLResponse?, location: URL?, error: Error?)
@@ -36,7 +37,7 @@ public protocol ZDownloadable: class {
 }
 
 
-public protocol ZDownloaderDelegate: class {
+public protocol ZDownloaderDelegate: AnyObject {
 
 	func downloadable(with dictionary: NSDictionary) -> ZDownloadable?
 
@@ -61,8 +62,8 @@ public class ZDownloader: NSObject {
 		ZDownloader.downloaders.setObject(self, forKey: identifier as NSString)
 		
 		typealias T = ZDownloader
-		NotificationCenter.default.addObserver(self, selector: #selector(T.applicationWillEnterForeground(_:)), name: .UIApplicationWillEnterForeground, object: nil)
-		NotificationCenter.default.addObserver(self, selector: #selector(T.applicationDidEnterBackground(_:)), name: .UIApplicationDidEnterBackground, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(T.applicationWillEnterForeground(_:)), name: UIApplication.willEnterForegroundNotification, object: nil)
+		NotificationCenter.default.addObserver(self, selector: #selector(T.applicationDidEnterBackground(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
 	}
 
 	deinit {

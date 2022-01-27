@@ -33,7 +33,8 @@ extension ImageEntity: ZDownloadable {
 			self.status = response.statusCode as NSNumber
 		}
 		
-		try? self.managedObjectContext?.save()
+		do { try self.managedObjectContext?.save() }
+		catch { fatalError("\(error)") }
 
 		NotificationCenter.default.post(name: .imageDidDownload, object: self)
 	}

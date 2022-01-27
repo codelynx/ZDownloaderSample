@@ -25,7 +25,7 @@ extension ImageEntity: ZDownloadable {
 
 		if let location = location {
 			if let imageBin = try? Data(contentsOf: location), let _ = UIImage(data: imageBin) {
-				self.imageBin = imageBin as NSData
+				self.imageBin = imageBin
 			}
 		}
 		

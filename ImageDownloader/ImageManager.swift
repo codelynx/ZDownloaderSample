@@ -8,6 +8,7 @@
 
 import Foundation
 import CoreData
+import UIKit
 
 
 extension Notification.Name {
@@ -21,95 +22,97 @@ extension Notification.Name {
 class ImageManager: ZDownloaderDelegate {
 
 	private init() {
+		self.loadImageItems()
 	}
 
 	static let shared = ImageManager()
 
-	lazy var storage: ZManagedObjectStorage = {
-		let documentUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!
-		let fileURL = documentUrl.appendingPathComponent("images.sqlite")
-		return ZManagedObjectStorage(fileURL: fileURL, modelName: "ImageModel")!
-	}()
-
+	static var documentDirectoryURL: URL { return FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first! }
+	static func imageFileURL(uuid: UUID) -> URL {
+		return self.documentDirectoryURL.appendingPathComponent((uuid.uuidString as NSString).appendingPathExtension("jpeg")!)
+	}
+	
+	func makeRandomImageURLs(count: Int) -> [URL] {
+		return (0..<count).compactMap { URL(string: "https://picsum.photos/320?random=\($0)") }
+	}
+	
+	func makeRandomImageItems(count: Int) -> [ImageItem] {
+		return self.makeRandomImageURLs(count: count).map {  ImageItem(uuid: UUID(), url: $0) }
+	}
+	
+	var imageItems = [ImageItem]()
 	lazy var downloader: ZDownloader? = {
 		return ZDownloader(identifier: "image.downloader", delegate: self)
 	}()
 
 	func downloadable(with dictionary: NSDictionary) -> ZDownloadable? {
-		if let _ = dictionary["type"] as? String {
-			if let oid = dictionary["oid"] as? String, let uri = URL(string: oid) {
-				if let object = self.storage.managedObjectContext?.managedObject(with: uri) as? ImageEntity {
-					return object
-				}
-			}
+		if let uuidString = dictionary[Self.uuidKey] as? String, let uuid = UUID(uuidString: uuidString) {
+			return self.imageItem(with: uuid)
 		}
 		return nil
 	}
 
-	func updateImages() {
+	static let imageItemsKey = "image.items"
+	static let typeKey = "type"
+	static let uuidKey = "uuid"
+	static let urlKey = "url"
+	static let imageValue = "image"
 
-		DispatchQueue.global(qos: .default).async {
+	func imageItem(with uuid: UUID) -> ImageItem? {
+		return self.imageItems.filter { $0.uuid == uuid }.first
+	}
 
-			var imageObjects = self.imageObjects
+	func loadImageItems() {
+		self.imageItems = (UserDefaults.standard.value(forKey: Self.imageItemsKey) as? [NSDictionary]).flatMap { $0.compactMap { ImageItem(dictionary: $0) } } ?? []
+	}
+	
+	func saveImageItems() {
+		let dictionaries = self.imageItems.map { $0.dictionary }
+		UserDefaults.standard.setValue(dictionaries, forKey: Self.imageItemsKey)
+	}
 
-			if imageObjects.count == 0 {
-
-				print("updating the list")
-				let context = self.storage.managedObjectContext!
-				let imageURLs = (0..<256).compactMap { URL(string: "https://picsum.photos/\($0)") }
-				for imageURL in imageURLs {
-					let request = NSFetchRequest<ImageEntity>(entityName: "ImageEntity")
-					request.predicate = NSPredicate(format: "url == %@", imageURL.absoluteString)
-					do {
-						var imageObject: ImageEntity? = try context.fetch(request).first
-						if imageObject == nil {
-							imageObject = context.insert(entityName: "ImageEntity")
-							imageObject?.url = imageURL.absoluteString
-						}
-						imageObjects.append(imageObject!)
-					}
-					catch { print("\(error)") }
-				}
-				try! self.storage.managedObjectContext?.save()
+	private var isSaving = false
+	func setNeedsSave() {
+		if !self.isSaving {
+			self.isSaving = true
+			Timer.scheduledTimer(withTimeInterval: 0.3, repeats: false) { timer in
+				self.saveImageItems()
+				self.isSaving = false
 			}
-
-			// just reload all objects
-			print("reloading objects")
-			
-			NotificationCenter.default.post(name: .imageListDidChange, object: nil, userInfo: nil)
-
-			self.startDownloadingImages()
 		}
-
 	}
 
 	func startDownloadingImages() {
 		DispatchQueue.global(qos: .default).async {
-			// start downloading images
 			print("start downloading images....")
-			let imageObjects = self.imageObjects
-			for imageObject in imageObjects {
-				if imageObject.imageBin == nil && imageObject.status == nil, let urlString = imageObject.url, let url = URL(string: urlString) {
-					let request = URLRequest(url: url)
-					self.downloader?.download(request: request, downloadable: imageObject)
-					print("request: \(url.absoluteString)")
+			for imageItem in self.imageItems {
+				if !imageItem.hasImage {
+					let request = URLRequest(url: imageItem.url)
+					self.downloader?.download(request: request, downloadable: imageItem)
+					print("request: \(imageItem.url.absoluteString)")
 				}
 			}
 		}
 	}
 
-	var imageObjects: [ImageEntity] {
-		let request = NSFetchRequest<ImageEntity>(entityName: "ImageEntity")
-		return try! self.storage.managedObjectContext?.fetch(request) ?? []
+	private func cleanup() {
+		do {
+			let documentDirectoryURL = Self.documentDirectoryURL
+			for item in try FileManager.default.contentsOfDirectory(atPath: documentDirectoryURL.path) {
+				let fileURL = documentDirectoryURL.appendingPathComponent(item)
+				try FileManager.default.removeItem(at: fileURL)
+			}
+		}
+		catch {
+			fatalError("\(error)")
+		}
 	}
 	
-	func reload() {
-		let context = self.storage.managedObjectContext
-		for imageObject in self.imageObjects {
-			context?.delete(imageObject)
-		}
-		((try? context?.save()) as ()??)
-		self.updateImages()
+	func refresh() {
+		self.cleanup()
+		self.imageItems = self.makeRandomImageItems(count: 256)
+		self.saveImageItems()
+		self.startDownloadingImages()
 	}
 
 }

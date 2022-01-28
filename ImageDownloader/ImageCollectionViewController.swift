@@ -19,7 +19,9 @@ class ImageCollectionViewController: UIViewController, UICollectionViewDataSourc
 	override func viewDidLoad() {
 		super.viewDidLoad()
 
-		ImageManager.shared.updateImages()
+		if self.imageItems.count == 0 {
+			ImageManager.shared.refresh()
+		}
 
 		typealias T = ImageCollectionViewController
 		NotificationCenter.default.addObserver(self, selector: #selector(T.imageDidLoad(_:)), name: .imageDidDownload, object: nil)
@@ -30,19 +32,18 @@ class ImageCollectionViewController: UIViewController, UICollectionViewDataSourc
 		super.didReceiveMemoryWarning()
 	}
 
-	var imageObjects = [ImageEntity]()
-
+	var imageItems: [ImageItem] { return ImageManager.shared.imageItems }
 
 	@IBAction func reload(_ sender: UIBarButtonItem) {
-		ImageManager.shared.reload()
+		ImageManager.shared.refresh()
 		self.collectionView.reloadData()
 		ImageManager.shared.startDownloadingImages()
 	}
 
 	@objc func imageDidLoad(_ notification: Notification) {
-		if let imageObject = notification.object as? ImageEntity {
-			if let item = imageObjects.firstIndex(of: imageObject) {
-				let indexPath = IndexPath(item: item, section: 0)
+		if let uuid = notification.object as? UUID {
+			if let (index, _) = self.imageItems.enumerated().filter({ (_, item) in item.uuid == uuid }).first {
+				let indexPath = IndexPath(item: index, section: 0)
 				DispatchQueue.main.async {
 					self.collectionView.reloadItems(at: [indexPath])
 				}
@@ -52,7 +53,6 @@ class ImageCollectionViewController: UIViewController, UICollectionViewDataSourc
 
 	@objc func imageListDidChange(_ notification: Notification) {
 		DispatchQueue.main.async {
-			self.imageObjects = ImageManager.shared.imageObjects
 			self.collectionView.reloadData()
 		}
 	}
@@ -60,31 +60,13 @@ class ImageCollectionViewController: UIViewController, UICollectionViewDataSourc
 	// MARK: -
 
 	func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-		return self.imageObjects.count
+		return self.imageItems.count
 	}
 
 	func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 		let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! ImageCollectionViewCell
-		cell.imageEntity = self.imageObjects[indexPath.row]
+		cell.imageItem = self.imageItems[indexPath.row]
 		return cell
-	}
-
-}
-
-extension NSManagedObjectContext {
-
-	public func insert<T: NSManagedObject>(entityName: String) -> T? {
-		if let entity = NSEntityDescription.entity(forEntityName: entityName, in: self) {
-			return NSManagedObject(entity: entity, insertInto: self) as? T
-		}
-		return nil
-	}
-
-	public func managedObject(with uri: URL) -> NSManagedObject? {
-		if let objectID = self.persistentStoreCoordinator?.managedObjectID(forURIRepresentation: uri) {
-			return self.object(with: objectID)
-		}
-		return nil
 	}
 
 }

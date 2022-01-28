@@ -12,16 +12,11 @@
 		CC1BD2031DE43EF2001B0F5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC1BD2011DE43EF2001B0F5C /* Main.storyboard */; };
 		CC1BD2051DE43EF2001B0F5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CC1BD2041DE43EF2001B0F5C /* Assets.xcassets */; };
 		CC1BD2081DE43EF2001B0F5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CC1BD2061DE43EF2001B0F5C /* LaunchScreen.storyboard */; };
-		CC1BD2101DE43F04001B0F5C /* imagelist.txt in Resources */ = {isa = PBXBuildFile; fileRef = CC1BD20F1DE43F04001B0F5C /* imagelist.txt */; };
-		CC1BD2131DE43FCF001B0F5C /* ImageModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = CC1BD2111DE43FCF001B0F5C /* ImageModel.xcdatamodeld */; };
-		CC1BD2151DE440C4001B0F5C /* ZManagedObjectStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1BD2141DE440C4001B0F5C /* ZManagedObjectStorage.swift */; };
-		CC1BD2171DE441D9001B0F5C /* FileHandle+Z.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1BD2161DE441D9001B0F5C /* FileHandle+Z.swift */; };
 		CC1BD2191DE44C11001B0F5C /* ImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1BD2181DE44C11001B0F5C /* ImageCollectionViewCell.swift */; };
 		CC1BD21B1DE44DEF001B0F5C /* ZDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1BD21A1DE44DEF001B0F5C /* ZDownloader.swift */; };
-		CC1BD21D1DE4652A001B0F5C /* ImageEntity+addition.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC1BD21C1DE4652A001B0F5C /* ImageEntity+addition.swift */; };
-		CC5C19541DE80D080082131E /* Array+Shuffled.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5C19531DE80D080082131E /* Array+Shuffled.swift */; };
 		CC5E87EE1DE46D13002249C8 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC5E87ED1DE46D13002249C8 /* ImageManager.swift */; };
 		CC5E87F31DE4A1F8002249C8 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CC5E87F21DE4A1F8002249C8 /* CoreData.framework */; };
+		CCE0A44B27A3C8A600B83E05 /* ImageItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCE0A44A27A3C8A600B83E05 /* ImageItem.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,16 +27,11 @@
 		CC1BD2041DE43EF2001B0F5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CC1BD2071DE43EF2001B0F5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CC1BD2091DE43EF2001B0F5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CC1BD20F1DE43F04001B0F5C /* imagelist.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = imagelist.txt; sourceTree = "<group>"; };
-		CC1BD2121DE43FCF001B0F5C /* ImageModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = ImageModel.xcdatamodel; sourceTree = "<group>"; };
-		CC1BD2141DE440C4001B0F5C /* ZManagedObjectStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZManagedObjectStorage.swift; sourceTree = "<group>"; };
-		CC1BD2161DE441D9001B0F5C /* FileHandle+Z.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "FileHandle+Z.swift"; sourceTree = "<group>"; };
 		CC1BD2181DE44C11001B0F5C /* ImageCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		CC1BD21A1DE44DEF001B0F5C /* ZDownloader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ZDownloader.swift; sourceTree = "<group>"; };
-		CC1BD21C1DE4652A001B0F5C /* ImageEntity+addition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImageEntity+addition.swift"; sourceTree = "<group>"; };
-		CC5C19531DE80D080082131E /* Array+Shuffled.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Array+Shuffled.swift"; sourceTree = "<group>"; };
 		CC5E87ED1DE46D13002249C8 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		CC5E87F21DE4A1F8002249C8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		CCE0A44A27A3C8A600B83E05 /* ImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItem.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,20 +67,15 @@
 			isa = PBXGroup;
 			children = (
 				CC1BD1FD1DE43EF2001B0F5C /* AppDelegate.swift */,
-				CC5C19531DE80D080082131E /* Array+Shuffled.swift */,
 				CC1BD2041DE43EF2001B0F5C /* Assets.xcassets */,
-				CC1BD2161DE441D9001B0F5C /* FileHandle+Z.swift */,
 				CC1BD2181DE44C11001B0F5C /* ImageCollectionViewCell.swift */,
 				CC1BD1FF1DE43EF2001B0F5C /* ImageCollectionViewController.swift */,
-				CC1BD21C1DE4652A001B0F5C /* ImageEntity+addition.swift */,
-				CC1BD20F1DE43F04001B0F5C /* imagelist.txt */,
 				CC5E87ED1DE46D13002249C8 /* ImageManager.swift */,
-				CC1BD2111DE43FCF001B0F5C /* ImageModel.xcdatamodeld */,
 				CC1BD2091DE43EF2001B0F5C /* Info.plist */,
 				CC1BD2061DE43EF2001B0F5C /* LaunchScreen.storyboard */,
 				CC1BD2011DE43EF2001B0F5C /* Main.storyboard */,
 				CC1BD21A1DE44DEF001B0F5C /* ZDownloader.swift */,
-				CC1BD2141DE440C4001B0F5C /* ZManagedObjectStorage.swift */,
+				CCE0A44A27A3C8A600B83E05 /* ImageItem.swift */,
 			);
 			path = ImageDownloader;
 			sourceTree = "<group>";
@@ -166,7 +151,6 @@
 			files = (
 				CC1BD2081DE43EF2001B0F5C /* LaunchScreen.storyboard in Resources */,
 				CC1BD2051DE43EF2001B0F5C /* Assets.xcassets in Resources */,
-				CC1BD2101DE43F04001B0F5C /* imagelist.txt in Resources */,
 				CC1BD2031DE43EF2001B0F5C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,16 +162,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CCE0A44B27A3C8A600B83E05 /* ImageItem.swift in Sources */,
 				CC1BD2191DE44C11001B0F5C /* ImageCollectionViewCell.swift in Sources */,
 				CC1BD21B1DE44DEF001B0F5C /* ZDownloader.swift in Sources */,
-				CC5C19541DE80D080082131E /* Array+Shuffled.swift in Sources */,
 				CC1BD2001DE43EF2001B0F5C /* ImageCollectionViewController.swift in Sources */,
 				CC5E87EE1DE46D13002249C8 /* ImageManager.swift in Sources */,
-				CC1BD2151DE440C4001B0F5C /* ZManagedObjectStorage.swift in Sources */,
-				CC1BD21D1DE4652A001B0F5C /* ImageEntity+addition.swift in Sources */,
-				CC1BD2131DE43FCF001B0F5C /* ImageModel.xcdatamodeld in Sources */,
 				CC1BD1FE1DE43EF2001B0F5C /* AppDelegate.swift in Sources */,
-				CC1BD2171DE441D9001B0F5C /* FileHandle+Z.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +244,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -319,7 +299,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -378,19 +358,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		CC1BD2111DE43FCF001B0F5C /* ImageModel.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				CC1BD2121DE43FCF001B0F5C /* ImageModel.xcdatamodel */,
-			);
-			currentVersion = CC1BD2121DE43FCF001B0F5C /* ImageModel.xcdatamodel */;
-			path = ImageModel.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = CC1BD1F21DE43EF2001B0F5C /* Project object */;
 }

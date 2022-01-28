@@ -12,30 +12,25 @@ import UIKit
 class ImageCollectionViewCell: UICollectionViewCell {
 	@IBOutlet weak var imageView: UIImageView!
 	@IBOutlet weak var iconView: UILabel!
-	var observing: Bool = false
-
-    var imageEntity: ImageEntity! {
+	
+	var imageItem: ImageItem! {
 		didSet { self.setNeedsLayout() }
 	}
-
+	
 	deinit {
 	}
-
+	
 	override func layoutSubviews() {
-		assert(imageEntity != nil)
-		if let imageEntity = self.imageEntity, let bin = imageEntity.imageBin, let image = UIImage(data: bin as Data) {
-			self.imageView.image = image
-		}
-		else {
-			self.imageView.image = nil
-		}
-		
-		if let status = imageEntity.status?.int16Value, status >= 300 {
-			self.iconView.isHidden = false
-		}
-		else {
-			self.iconView.isHidden = true
-		}
+		super.layoutSubviews()
+		guard let imageItem = self.imageItem else { return }
+		self.imageView.image = imageItem.image
+		self.iconView.isHidden = (imageItem.status ?? 0) < 300
+		self.setNeedsDisplay()
 	}
 	
+	override func prepareForReuse() {
+		super.prepareForReuse()
+		self.imageView.image = nil
+		self.iconView.isHidden = true
+	}
 }

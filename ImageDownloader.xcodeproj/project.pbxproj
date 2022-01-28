@@ -32,6 +32,7 @@
 		CC5E87ED1DE46D13002249C8 /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		CC5E87F21DE4A1F8002249C8 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		CCE0A44A27A3C8A600B83E05 /* ImageItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageItem.swift; sourceTree = "<group>"; };
+		CCE0A44C27A3CF2800B83E05 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -49,6 +50,7 @@
 		CC1BD1F11DE43EF2001B0F5C = {
 			isa = PBXGroup;
 			children = (
+				CCE0A44C27A3CF2800B83E05 /* README.md */,
 				CC1BD1FC1DE43EF2001B0F5C /* ImageDownloader */,
 				CC1BD1FB1DE43EF2001B0F5C /* Products */,
 				CC5E87F11DE4A1F8002249C8 /* Frameworks */,
